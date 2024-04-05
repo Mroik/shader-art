@@ -61,6 +61,7 @@ function main(gl: WebGLRenderingContext) {
 	// 2nd param is number of items per object (vec2 is 2, vec3 is 3)
 	gl.vertexAttribPointer(posAttribute, 2, gl.FLOAT, false, 0, 0);
 	gl.enableVertexAttribArray(posAttribute);
+	let timeLocation = gl.getUniformLocation(program, "time");
 
 	let draw = () => {
 		prepareCanvas();
@@ -74,10 +75,13 @@ function main(gl: WebGLRenderingContext) {
 			-1, -1,
 			1, 1,
 		];
+		let t = (Date.now() % 2000 - 1000) / 1000;
+		console.log(t);
+		gl.uniform1f(timeLocation, t);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 		gl.useProgram(program);
 		gl.drawArrays(gl.TRIANGLES, 0, positions.length / 2);
 	}
 	draw();
-	setInterval(draw, 1000);
+	setInterval(draw, 1000 / 144);
 }
