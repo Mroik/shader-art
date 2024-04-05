@@ -76,7 +76,6 @@ function main(gl: WebGLRenderingContext) {
 			1, 1,
 		];
 		let t = (Date.now() % 2000 - 1000) / 1000;
-		console.log(t);
 		gl.uniform1f(timeLocation, t);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 		gl.useProgram(program);
