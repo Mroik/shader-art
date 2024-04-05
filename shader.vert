@@ -1,3 +1,4 @@
+precision highp float;
 attribute vec2 pos;
 varying vec2 coord;
 
