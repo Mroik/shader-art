@@ -1,6 +1,7 @@
 let gl: WebGLRenderingContext;
 let vertexShader: string;
 let fragmentShader: string;
+var toggleRender = true;
 window.onload = (_: any) => {
 	let canv = document.getElementById("canvas") as HTMLCanvasElement;
 	canv.width = window.innerWidth;
@@ -9,6 +10,12 @@ window.onload = (_: any) => {
 	vertexShader = httpGet("shader.vert");
 	fragmentShader = httpGet("shader.frag");
 	main(gl);
+};
+
+window.onkeydown = (e: KeyboardEvent) => {
+	if(e.code == "Space") {
+		toggleRender = !toggleRender;
+	}
 };
 
 let prepareCanvas = () => {
@@ -64,6 +71,9 @@ function main(gl: WebGLRenderingContext) {
 	let timeLocation = gl.getUniformLocation(program, "time");
 
 	let draw = () => {
+		if(!toggleRender) {
+			return;
+		}
 		prepareCanvas();
 		let positions = [
 			// 1st triangle
